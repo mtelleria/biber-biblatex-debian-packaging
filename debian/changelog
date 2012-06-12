@@ -1,3 +1,10 @@
+biber (0.9.9-1) unstable; urgency=low
+
+  * Backporting to 0.9.9 tag in upstream's git
+  * [a2a0c475] Updating patches for the previous version
+
+ -- Miguel Telleria de Esteban <miguel@mtelleria.com>  Tue, 12 Jun 2012 10:46:13 +0200
+
 biber (0.9.9+git2012426-3) unstable; urgency=low
 
   * Team upload.
