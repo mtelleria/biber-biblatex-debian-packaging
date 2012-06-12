@@ -1,0 +1,3 @@
+version=3
+opts="dversionmangle=s/\+.*//" \
+http://githubredir.debian.net/github/plk/biber/ v(.+).tar.gz

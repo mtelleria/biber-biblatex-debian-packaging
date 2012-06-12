@@ -1,0 +1,105 @@
+Description: add (dummy) whatis entries to POD
+Origin: vendor
+Forwarded: no
+Author: gregor herrmann <gregoa@debian.org>
+Last-Update: 2012-06-05
+
+--- a/lib/Biber/Entries.pm
++++ b/lib/Biber/Entries.pm
+@@ -7,7 +7,7 @@
+ 
+ =head1 NAME
+ 
+-Biber::Entries
++Biber::Entries - Biber::Entries objects
+ 
+ =head2 new
+ 
+--- a/lib/Biber/Entry.pm
++++ b/lib/Biber/Entry.pm
+@@ -15,7 +15,7 @@
+ 
+ =head1 NAME
+ 
+-Biber::Entry
++Biber::Entry - Biber::Entry objects
+ 
+ =head2 new
+ 
+--- a/lib/Biber/Entry/Name.pm
++++ b/lib/Biber/Entry/Name.pm
+@@ -14,7 +14,7 @@
+ 
+ =head1 NAME
+ 
+-Biber::Entry::Name
++Biber::Entry::Name - Biber::Entry::Name objects
+ 
+ =head2 new
+ 
+--- a/lib/Biber/Entry/Names.pm
++++ b/lib/Biber/Entry/Names.pm
+@@ -13,7 +13,7 @@
+ 
+ =head1 NAME
+ 
+-Biber::Entry::Names
++Biber::Entry::Names - Biber::Entry::Names objects
+ 
+ =head2 new
+ 
+--- a/lib/Biber/Section.pm
++++ b/lib/Biber/Section.pm
+@@ -11,7 +11,7 @@
+ 
+ =head1 NAME
+ 
+-Biber::Section
++Biber::Section - Biber::Section objects
+ 
+ =head2 new
+ 
+--- a/lib/Biber/Sections.pm
++++ b/lib/Biber/Sections.pm
+@@ -7,7 +7,7 @@
+ 
+ =head1 NAME
+ 
+-Biber::Sections
++Biber::Sections - Biber::Sections objects
+ 
+ =head2 new
+ 
+--- a/lib/Biber/SortList.pm
++++ b/lib/Biber/SortList.pm
+@@ -11,7 +11,7 @@
+ 
+ =head1 NAME
+ 
+-Biber::SortList
++Biber::SortList - Biber::SortList objects
+ 
+ =head2 new
+ 
+--- a/lib/Biber/SortLists.pm
++++ b/lib/Biber/SortLists.pm
+@@ -7,7 +7,7 @@
+ 
+ =head1 NAME
+ 
+-Biber::SortLists
++Biber::SortLists - Biber::SortLists objects
+ 
+ =head2 new
+ 
+--- a/lib/Biber/Structure.pm
++++ b/lib/Biber/Structure.pm
+@@ -13,7 +13,7 @@
+ 
+ =head1 NAME
+ 
+-Biber::Structure
++Biber::Structure - Biber::Structure objects
+ 
+ 
+ =cut

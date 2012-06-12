@@ -1,0 +1,35 @@
+Commands for the `biber' Debian package
+=======================================
+
+1. Remove a Git tag that was already committed
+----------------------------------------------
+
+Example:
+ git push origin :debian/0.9.9+git2012426-1
+
+This will remove the tag "debian/0.9.9+git2012426-1".
+
+
+2. Build the package from source
+--------------------------------
+
+debian/gbp.conf already contains some configuration settings.
+One only needs to run "git-buildpackage" to make it work.
+
+Example:
+ git-buildpackage
+
+
+
+3. Update the upstream source
+-----------------------------
+
+I think I have to run the command "gbp-pull" to get it to
+work.  You cannot have uncommitted changes in your source
+tree.
+
+Example:
+ gbp-pull
+
+
+ -- Danai SAE-HAN (韓達耐) <danai@debian.org>, Tue,  1 May 2012 11:09:54 +0200

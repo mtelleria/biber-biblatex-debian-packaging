@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+TEST_FILES=$(filter-out t/remote-files.t,$(shell echo t/*.t))
+
+%:
+	dh $@
+
+override_dh_auto_test:
+	dh_auto_test -- test_files="$(TEST_FILES)"
