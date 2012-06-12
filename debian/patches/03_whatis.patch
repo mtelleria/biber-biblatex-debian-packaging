@@ -70,28 +70,6 @@ Last-Update: 2012-06-05
  
  =head2 new
  
---- a/lib/Biber/SortList.pm
-+++ b/lib/Biber/SortList.pm
-@@ -11,7 +11,7 @@
- 
- =head1 NAME
- 
--Biber::SortList
-+Biber::SortList - Biber::SortList objects
- 
- =head2 new
- 
---- a/lib/Biber/SortLists.pm
-+++ b/lib/Biber/SortLists.pm
-@@ -7,7 +7,7 @@
- 
- =head1 NAME
- 
--Biber::SortLists
-+Biber::SortLists - Biber::SortLists objects
- 
- =head2 new
- 
 --- a/lib/Biber/Structure.pm
 +++ b/lib/Biber/Structure.pm
 @@ -13,7 +13,7 @@
