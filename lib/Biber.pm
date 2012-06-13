@@ -27,7 +27,8 @@ use Biber::Entry::Name;
 use Biber::Sections;
 use Biber::Section;
 use Biber::LaTeX::Recode;
-use Biber::Section::List;
+use Biber::SortLists;
+use Biber::SortList;
 use Biber::Structure;
 use Biber::Utils;
 use Storable qw( dclone );
@@ -138,6 +139,20 @@ sub sections {
   my $self = shift;
   return $self->{sections};
 }
+
+=head2 sortlists
+
+    my $sortlists= $biber->sortlists
+
+    Returns a Biber::SortLists object describing the bibliography sorting lists
+
+=cut
+
+sub sortlists {
+  my $self = shift;
+  return $self->{sortlists};
+}
+
 
 
 =head2 set_output_obj
@@ -295,6 +310,7 @@ sub parse_ctrlfile {
                                                            qr/\Amap_step\z/,
                                                            qr/\Aper_type\z/,
                                                            qr/\Aper_datasource\z/,
+                                                           qr/\Anosort\z/,
                                                            qr/\Apresort\z/,
                                                            qr/\Atype_pair\z/,
                                                            qr/\Ainherit\z/,
@@ -306,7 +322,7 @@ sub parse_ctrlfile {
                                                            qr/\Aconstraint\z/,
                                                            qr/\Aentrytype\z/,
                                                            qr/\Adatetype\z/,
-                                                           qr/\Asectionlist\z/,
+                                                           qr/\Asortlist\z/,
                                                            qr/\Alabel(?:part|element|alphatemplate)\z/,
                                                            qr/\Acondition\z/,
                                                            qr/\A(?:or)?filter\z/,
@@ -423,6 +439,17 @@ sub parse_ctrlfile {
   # INHERITANCE schemes for crossreferences (always global)
   Biber::Config->setblxoption('inheritance', $bcfxml->{inheritance});
 
+  # NOSORTS
+  # Make the data structure look like the biber config file structure
+  # "field" and "value" are forced to arrays for other elements so we extract
+  # the first element here as they will always be only length=1
+  my $nosort;
+  foreach my $ns (@{$bcfxml->{nosorts}{nosort}}) {
+    push @$nosort, { name => $ns->{field}[0], value => $ns->{value}[0]};
+  }
+  # There is a default so don't set this option if nothing is in the .bcf
+  Biber::Config->setoption('nosort', $nosort) if $nosort;
+
   # SORTING
 
   # sorting excludes
@@ -499,63 +526,6 @@ SECTION: foreach my $section (@{$bcfxml->{section}}) {
     $bib_section->set_datasources($bibdatasources{$secnum}) unless
       $bib_section->get_datasources;
 
-    # Add any list specs to the Biber::Section object
-    foreach my $list (@{$section->{sectionlist}}) {
-      my $llabel = $list->{label};
-      if ($bib_section->get_list($llabel)) {
-        biber_warn("Section list '$llabel' is repeated for section $secnum - ignoring subsequent mentions");
-        next;
-      }
-
-      my $seclist = Biber::Section::List->new(label => $llabel);
-      foreach my $filter (@{$list->{filter}}) {
-        $seclist->add_filter($filter->{type}, $filter->{content});
-      }
-      # disjunctive filters
-      foreach my $orfilter (@{$list->{orfilter}}) {
-        $seclist->add_filter('orfilter', { map {$_->{type} => [$_->{content}]} @{$orfilter->{filter}} });
-      }
-
-      if (my $sorting = $list->{sorting}) { # can be undef for fallback to global sorting
-        $seclist->set_sortscheme(_parse_sort($sorting));
-      }
-      else {
-        $seclist->set_sortscheme(Biber::Config->getblxoption('sorting'));
-      }
-      $seclist->set_type($list->{type} || 'entry'); # lists are entry lists by default
-      $logger->debug("Adding list '$llabel' to section $secnum");
-      $bib_section->add_list($seclist);
-    }
-
-    # Intermediate code until biblatex moves main \printbibliography to a list
-    # MAIN list has no filter and no sorting spec so it uses all citekeys and the
-    # global sort default.
-    unless ($bib_section->get_list('MAIN')) {
-      my $mainlist = Biber::Section::List->new(label => 'MAIN');
-      $mainlist->set_sortscheme(Biber::Config->getblxoption('sorting'));
-      $mainlist->set_type('entry');
-      $bib_section->add_list($mainlist);
-    }
-
-    # Intermediate code until biblatex moves SHORTHANDS to a .bcf supported list
-    unless ($bib_section->get_list('SHORTHANDS')) {
-      my $los = Biber::Section::List->new(label => 'SHORTHANDS');
-      if (Biber::Config->getblxoption('sortlos')) {
-        $los->set_sortscheme([
-                              [ {'final' => 1},
-                                {'sortshorthand'    => {}}
-                              ],
-                              [ {}, {'shorthand'     => {}} ] ]);
-        $los->add_filter('field', 'shorthand');
-      }
-      else {
-        $los->set_sortscheme(Biber::Config->getblxoption('sorting'));
-        $los->add_filter('field', 'shorthand');
-      }
-      $los->set_type('shorthand');
-      $bib_section->add_list($los);
-    }
-
     # Stop reading citekeys if we encounter "*" as a citation as this means
     # "all keys"
     my @keys = ();
@@ -598,13 +568,47 @@ SECTION: foreach my $section (@{$bcfxml->{section}}) {
     $bib_sections->add_section($bib_section);
   }
 
+  # Add the Biber::Sections object to the Biber object
+  $self->{sections} = $bib_sections;
+
+  # Read sortlists
+  my $sortlists = new Biber::SortLists;
+  foreach my $list (@{$bcfxml->{sortlist}}) {
+    my $ltype  = $list->{type};
+    my $llabel = $list->{label};
+    my $lsection = $list->{section}[0]; # because "section" needs to be a list elsewhere in XML
+    if (my $l = $sortlists->get_list($lsection, $ltype, $llabel)) {
+      biber_warn("Section '$ltype' list '$llabel' is repeated for section $lsection - ignoring subsequent mentions");
+      next;
+    }
+
+    my $seclist = Biber::SortList->new(section => $lsection, label => $llabel);
+    $seclist->set_type($ltype || 'entry'); # lists are entry lists by default
+    foreach my $filter (@{$list->{filter}}) {
+      $seclist->add_filter($filter->{type}, $filter->{content});
+    }
+    # disjunctive filters
+    foreach my $orfilter (@{$list->{orfilter}}) {
+      $seclist->add_filter('orfilter', { map {$_->{type} => [$_->{content}]} @{$orfilter->{filter}} });
+    }
+
+    if (my $sorting = $list->{sorting}) { # can be undef for fallback to global sorting
+      $seclist->set_sortscheme(_parse_sort($sorting));
+    }
+    else {
+      $seclist->set_sortscheme(Biber::Config->getblxoption('sorting'));
+    }
+    $logger->debug("Adding '$ltype' list '$llabel' for section $lsection");
+    $sortlists->add_list($seclist);
+  }
+
+  # Add the Biber::SortLists object to the Biber object
+  $self->{sortlists} = $sortlists;
+
   # Die if there are no citations in any section
   unless ($key_flag) {
     biber_warn("The file '$ctrl_file_path' does not contain any citations!");
   }
-
-  # Add the Biber::Sections object to the Biber object
-  $self->{sections} = $bib_sections;
 
   # Normalise any UTF-8 encoding string immediately to exactly what we want
   # We want the strict perl utf8 "UTF-8"
@@ -622,6 +626,20 @@ SECTION: foreach my $section (@{$bcfxml->{section}}) {
 
 sub process_setup {
   my $self = shift;
+
+  # Make sure there is a default entry list with global sorting for each refsection
+  # Needed in case someone cites entries which are included in no
+  # bibliography as this results in no entry list in the .bcf
+  foreach my $section (@{$self->sections->get_sections}) {
+    my $secnum = $section->number;
+    unless ($self->sortlists->has_lists_of_type_for_section($secnum, 'entry')) {
+      my $dlist = Biber::SortList->new(label => Biber::Config->getblxoption('sortscheme'));
+      $dlist->set_sortscheme(Biber::Config->getblxoption('sorting'));
+      $dlist->set_type('entry');
+      $dlist->set_section($secnum);
+      $self->sortlists->add_list($dlist);
+    }
+  }
 
   # Break structure information up into more processing-friendly formats
   # for use in verification checks later
@@ -1533,14 +1551,15 @@ sub process_lists {
   my $self = shift;
   my $secnum = $self->get_current_section;
   my $section = $self->sections->get_section($secnum);
-  foreach my $list (@{$section->get_lists}) {
+  foreach my $list (@{$self->sortlists->get_lists_for_section($secnum)}) {
     my $llabel = $list->get_label;
+    my $ltype = $list->get_type;
 
     # Last-ditch fallback in case we still don't have a sorting spec
     $list->set_sortscheme(Biber::Config->getblxoption('sorting')) unless $list->get_sortscheme;
 
     $list->set_keys([ $section->get_citekeys ]);
-    $logger->debug("Populated list '$llabel' in section $secnum with keys: " . join(', ', $list->get_keys));
+    $logger->debug("Populated '$ltype' list '$llabel' in section $secnum with keys: " . join(', ', $list->get_keys));
 
     # Now we check the sorting cache to see if we already have results
     # for this scheme since sorting is computationally expensive.
@@ -2331,6 +2350,7 @@ sub sort_list {
   my $sortscheme = $list->get_sortscheme;
   my @keys = $list->get_keys;
   my $llabel = $list->get_label;
+  my $ltype = $list->get_type;
   my $secnum = $self->get_current_section;
   my $section = $self->sections->get_section($secnum);
 
@@ -2345,7 +2365,7 @@ sub sort_list {
     $logger->debug("$k => " . $list->get_sortdata($k)->[0] . "\n");
   }
 
-  $logger->trace("Sorting list '$llabel' with scheme\n-------------------\n" . Data::Dump::pp($sortscheme) . "\n-------------------\n");
+  $logger->trace("Sorting '$ltype' list '$llabel' with scheme\n-------------------\n" . Data::Dump::pp($sortscheme) . "\n-------------------\n");
 
   # Set up locale. Order of priority is:
   # 1. locale value passed to Unicode::Collate::Locale->new() (Unicode::Collate sorts only)
@@ -2359,7 +2379,7 @@ sub sort_list {
 
   if ( Biber::Config->getoption('fastsort') ) {
     use locale;
-    $logger->info("Sorting list '$llabel' keys");
+    $logger->info("Sorting '$ltype' list '$llabel' keys");
     $logger->debug("Sorting with fastsort (locale $thislocale)");
     unless (setlocale(LC_ALL, $thislocale)) {
       biber_warn("Unavailable locale $thislocale");
@@ -2477,7 +2497,7 @@ sub sort_list {
     }
 
     my $UCAversion = $Collator->version();
-    $logger->info("Sorting list '$llabel' keys");
+    $logger->info("Sorting '$ltype' list '$llabel' keys");
     $logger->debug("Sorting with Unicode::Collate (" . stringify_hash($collopts) . ", UCA version: $UCAversion)");
 
     # Log if U::C::L currently has no tailoring for used locale

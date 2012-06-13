@@ -52,8 +52,8 @@ Biber::Config->setblxoption('labelyear', undef);
 $biber->prepare;
 my $section = $biber->sections->get_section(0);
 my $bibentries = $section->bibentries;
-my $main = $section->get_list('MAIN');
-my $shs = $section->get_list('SHORTHANDS');
+my $main = $biber->sortlists->get_list(0, 'entry', 'MAIN');
+my $shs = $biber->sortlists->get_list(0, 'shorthand', 'SHORTHANDS');
 my $out = $biber->get_output_obj;
 
 my $ss = [
@@ -97,128 +97,123 @@ my $ss = [
            ],
           ];
 
-my $l4 = q|  \entry{L4}{book}{}
-    \true{morelabelname}
-    \name{labelname}{1}{}{%
-      {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
-    }
-    \true{moreauthor}
-    \name{author}{1}{}{%
-      {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
-    }
-    \list{location}{1}{%
-      {Cambridge}%
-    }
-    \list{publisher}{1}{%
-      {Another press}%
-    }
-    \strng{namehash}{6eb389989020e8246fee90ac93fcecbe}
-    \strng{fullhash}{6eb389989020e8246fee90ac93fcecbe}
-    \field{labelalpha}{Doe\textbf{+}95}
-    \field{sortinit}{D}
-    \field{extraalpha}{2}
-    \field{title}{Some title about sorting}
-    \field{year}{1995}
-  \endentry
-
+my $l4 = q|    \entry{L4}{book}{}
+      \true{morelabelname}
+      \name{labelname}{1}{}{%
+        {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \true{moreauthor}
+      \name{author}{1}{}{%
+        {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Cambridge}%
+      }
+      \list{publisher}{1}{%
+        {Another press}%
+      }
+      \strng{namehash}{6eb389989020e8246fee90ac93fcecbe}
+      \strng{fullhash}{6eb389989020e8246fee90ac93fcecbe}
+      \field{labelalpha}{Doe\textbf{+}95}
+      \field{sortinit}{D}
+      \field{extraalpha}{2}
+      \field{title}{Some title about sorting}
+      \field{year}{1995}
+    \endentry
 |;
 
-my $l1 = q|  \entry{L1}{book}{}
-    \name{labelname}{1}{}{%
-      {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
-    }
-    \name{author}{1}{}{%
-      {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
-    }
-    \list{location}{1}{%
-      {Cambridge}%
-    }
-    \list{publisher}{1}{%
-      {A press}%
-    }
-    \strng{namehash}{bd051a2f7a5f377e3a62581b0e0f8577}
-    \strng{fullhash}{bd051a2f7a5f377e3a62581b0e0f8577}
-    \field{labelalpha}{Doe95}
-    \field{sortinit}{D}
-    \field{extraalpha}{1}
-    \field{title}{Algorithms For Sorting}
-    \field{year}{1995}
-  \endentry
-
+my $l1 = q|    \entry{L1}{book}{}
+      \name{labelname}{1}{}{%
+        {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Cambridge}%
+      }
+      \list{publisher}{1}{%
+        {A press}%
+      }
+      \strng{namehash}{bd051a2f7a5f377e3a62581b0e0f8577}
+      \strng{fullhash}{bd051a2f7a5f377e3a62581b0e0f8577}
+      \field{labelalpha}{Doe95}
+      \field{sortinit}{D}
+      \field{extraalpha}{1}
+      \field{title}{Algorithms For Sorting}
+      \field{year}{1995}
+    \endentry
 |;
 
-my $l2 = q|  \entry{L2}{book}{}
-    \name{labelname}{1}{}{%
-      {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
-    }
-    \name{author}{1}{}{%
-      {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
-    }
-    \list{location}{1}{%
-      {Cambridge}%
-    }
-    \list{publisher}{1}{%
-      {A press}%
-    }
-    \strng{namehash}{bd051a2f7a5f377e3a62581b0e0f8577}
-    \strng{fullhash}{bd051a2f7a5f377e3a62581b0e0f8577}
-    \field{labelalpha}{Doe95}
-    \field{sortinit}{D}
-    \field{extraalpha}{3}
-    \field{title}{Sorting Algorithms}
-    \field{year}{1995}
-  \endentry
-
+my $l2 = q|    \entry{L2}{book}{}
+      \name{labelname}{1}{}{%
+        {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Cambridge}%
+      }
+      \list{publisher}{1}{%
+        {A press}%
+      }
+      \strng{namehash}{bd051a2f7a5f377e3a62581b0e0f8577}
+      \strng{fullhash}{bd051a2f7a5f377e3a62581b0e0f8577}
+      \field{labelalpha}{Doe95}
+      \field{sortinit}{D}
+      \field{extraalpha}{3}
+      \field{title}{Sorting Algorithms}
+      \field{year}{1995}
+    \endentry
 |;
 
-my $l3 = q|  \entry{L3}{book}{}
-    \name{labelname}{1}{}{%
-      {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
-    }
-    \name{author}{1}{}{%
-      {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
-    }
-    \list{location}{1}{%
-      {Cambridge}%
-    }
-    \list{publisher}{1}{%
-      {A press}%
-    }
-    \strng{namehash}{bd051a2f7a5f377e3a62581b0e0f8577}
-    \strng{fullhash}{bd051a2f7a5f377e3a62581b0e0f8577}
-    \field{labelalpha}{Doe95}
-    \field{sortinit}{D}
-    \field{extraalpha}{2}
-    \field{title}{More and More Algorithms}
-    \field{year}{1995}
-  \endentry
-
+my $l3 = q|    \entry{L3}{book}{}
+      \name{labelname}{1}{}{%
+        {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Cambridge}%
+      }
+      \list{publisher}{1}{%
+        {A press}%
+      }
+      \strng{namehash}{bd051a2f7a5f377e3a62581b0e0f8577}
+      \strng{fullhash}{bd051a2f7a5f377e3a62581b0e0f8577}
+      \field{labelalpha}{Doe95}
+      \field{sortinit}{D}
+      \field{extraalpha}{2}
+      \field{title}{More and More Algorithms}
+      \field{year}{1995}
+    \endentry
 |;
 
-my $l5 = q|  \entry{L5}{book}{}
-    \true{morelabelname}
-    \name{labelname}{1}{}{%
-      {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
-    }
-    \true{moreauthor}
-    \name{author}{1}{}{%
-      {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
-    }
-    \list{location}{1}{%
-      {Cambridge}%
-    }
-    \list{publisher}{1}{%
-      {Another press}%
-    }
-    \strng{namehash}{6eb389989020e8246fee90ac93fcecbe}
-    \strng{fullhash}{6eb389989020e8246fee90ac93fcecbe}
-    \field{labelalpha}{Doe\textbf{+}95}
-    \field{sortinit}{D}
-    \field{extraalpha}{1}
-    \field{title}{Some other title about sorting}
-    \field{year}{1995}
-  \endentry
-
+my $l5 = q|    \entry{L5}{book}{}
+      \true{morelabelname}
+      \name{labelname}{1}{}{%
+        {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \true{moreauthor}
+      \name{author}{1}{}{%
+        {{hash=bd051a2f7a5f377e3a62581b0e0f8577}{Doe}{D\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Cambridge}%
+      }
+      \list{publisher}{1}{%
+        {Another press}%
+      }
+      \strng{namehash}{6eb389989020e8246fee90ac93fcecbe}
+      \strng{fullhash}{6eb389989020e8246fee90ac93fcecbe}
+      \field{labelalpha}{Doe\textbf{+}95}
+      \field{sortinit}{D}
+      \field{extraalpha}{1}
+      \field{title}{Some other title about sorting}
+      \field{year}{1995}
+    \endentry
 |;
 
 
@@ -258,7 +253,7 @@ $section->del_everykeys;
 Biber::Input::file::bibtex->init_cache;
 $biber->prepare;
 $section = $biber->sections->get_section(0);
-$shs = $section->get_list('SHORTHANDS');
+$shs = $biber->sortlists->get_list(0, 'shorthand', 'SHORTHANDS');
 
 # Sort by shorthand
 is_deeply([ $shs->get_keys ], ['L1', 'L2', 'L3', 'L4', 'L5'], 'sortorder - 3');

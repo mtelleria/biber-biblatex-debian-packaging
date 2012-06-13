@@ -541,7 +541,7 @@ sub _range {
   my $values_ref;
   my $value = decode_utf8($entry->get($f));
 
-  my @values = split(/\s*,\s*/, $value);
+  my @values = split(/\s*[;,]\s*/, $value);
   # Here the "-–" contains two different chars even though they might
   # look the same in some fonts ...
   # If there is a range sep, then we set the end of the range even if it's null
@@ -874,6 +874,11 @@ sub parsename {
   $namestr =~ s/\A\s*//xms; # leading whitespace
   $namestr =~ s/\s*\z//xms; # trailing whitespace
   $namestr =~ s/\s+/ /g;    # Collapse internal whitespace
+
+  # If requested, try to correct broken initials with no space between them.
+  # This can slightly mess up some other names like {{U.K. Government}} etc.
+  # btparse can't do this so we do it before name parsing
+  $namestr =~ s/(\w)\.(\w)/$1. $2/g if Biber::Config->getoption('fixinits');
 
   my $name = new Text::BibTeX::Name($namestr);
 

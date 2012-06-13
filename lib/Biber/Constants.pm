@@ -24,7 +24,7 @@ our @EXPORT = qw{
 
 # Version of biblatex which this release works with. Matched against version
 # passed in control file
-Readonly::Scalar our $BIBLATEX_VERSION => '1.7';
+Readonly::Scalar our $BIBLATEX_VERSION => '2.0';
 
 # Global flags needed for sorting
 our $BIBER_SORT_FINAL = 0;
@@ -111,6 +111,7 @@ our $CONFIG_DEFAULT_BIBER = {
   debug              => { content => 0 },
   decodecharsset     => { content => 'base' },
   fastsort           => { content => 0 },
+  fixinits           => { content => 0 },
   mincrossrefs       => { content => 2 },
   nodieonerror       => { content => 0 },
   nolog              => { content => 0 },
@@ -1576,7 +1577,6 @@ our %CONFIG_DEFAULT_BIBLATEX =
                      { content => "related", datatype => "literal", fieldtype => "field" },
                      { content => "relatedtype", datatype => "literal", fieldtype => "field" },
                      { content => "relatedstring", datatype => "literal", fieldtype => "field" },
-                     { content => "reprinttitle", datatype => "literal", fieldtype => "field" },
                      { content => "series", datatype => "literal", fieldtype => "field" },
                      { content => "shortauthor", datatype => "name", fieldtype => "list" },
                      { content => "shorteditor", datatype => "name", fieldtype => "list" },
@@ -1707,7 +1707,7 @@ our %CONFIG_SCOPE_BIBLATEX = (
   sortalphaothers    => {GLOBAL => 1, PER_TYPE => 1, PER_ENTRY => 0},
   sortexclusion      => {GLOBAL => 0, PER_TYPE => 1, PER_ENTRY => 0},
   sorting            => {GLOBAL => 1, PER_TYPE => 0, PER_ENTRY => 0},
-  sortlos            => {GLOBAL => 1, PER_TYPE => 0, PER_ENTRY => 0},
+  sortscheme         => {GLOBAL => 1, PER_TYPE => 0, PER_ENTRY => 0},
   structure          => {GLOBAL => 1, PER_TYPE => 0, PER_ENTRY => 0},
   uniquelist         => {GLOBAL => 1, PER_TYPE => 1, PER_ENTRY => 1},
   uniquename         => {GLOBAL => 1, PER_TYPE => 1, PER_ENTRY => 1},

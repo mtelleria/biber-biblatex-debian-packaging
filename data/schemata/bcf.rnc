@@ -40,7 +40,7 @@ start =
       minitems,
       singletitle,
       sortalphaothers?,
-      sortlos,
+      sortscheme,
       uniquelist,
       uniquename,
       useauthor,
@@ -160,7 +160,13 @@ start =
         }+
       }*
     },
-    
+    # nosort specification
+    element bcf:nosorts {
+      element bcf:nosort {
+        attribute field { xsd:string },
+        attribute value { xsd:string }
+      }+
+    }?,
     # Global sorting specification
     sorting,
     # Structure specification
@@ -289,8 +295,21 @@ start =
         }+
       }?,
       # Section specifications
-      secspec+
+      secspec+,
+      listspec+
     }
+
+listspec = 
+    element bcf:sortlist {
+      attribute section { xsd:integer },
+      attribute type { "entry" | "key" | "shorthand" },
+      attribute label { xsd:string {minLength="1"}},
+      (filter | orfilter )*,
+      element bcf:sorting {
+        sort+
+      }?
+    }*
+
 
 sorting = 
   element bcf:sorting {
@@ -355,14 +374,6 @@ secspec =
         attribute members { xsd:string {minLength="1"}},
         xsd:string {minLength="1"}) |
       xsd:string {minLength="1"}
-    }*,
-    element bcf:sectionlist {
-      attribute label { xsd:string {minLength="1"}},
-      attribute type { "entry" | "key" | "shorthand" },
-      (filter | orfilter )*,
-      element bcf:sorting {
-        sort+
-      }?
     }*
   }
 
@@ -375,7 +386,6 @@ filter = element bcf:filter {
                          | "keyword" | "notkeyword" | "field" | "notfield" },
            xsd:string {minLength="1"}
          }
-
 
 # option definitions
 useprefix =
@@ -517,11 +527,11 @@ mincitenames =
     element bcf:key { "mincitenames" },
     element bcf:value { xsd:integer }
   }
-sortlos =
+sortscheme =
   element bcf:option {
     attribute type { "singlevalued" },
-    element bcf:key { "sortlos" },
-    element bcf:value { "0" | "1" }
+    element bcf:key { "sortscheme" },
+    element bcf:value { xsd:NCName }
   }
 labelnamespec =
   element bcf:option {

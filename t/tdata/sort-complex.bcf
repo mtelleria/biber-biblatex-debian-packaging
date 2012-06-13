@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?oxygen RNGSchema="../../data/schemata/bcf.rnc" type="compact"?>
 <?xml-stylesheet type="text/xsl" href="../../data/bcf.xsl"?>
-<bcf:controlfile version="1.7" xmlns:bcf="https://sourceforge.net/projects/biblatex">
+<bcf:controlfile version="2.0" xmlns:bcf="https://sourceforge.net/projects/biblatex">
   <!-- OPTIONS -->
   <bcf:options component="biber" type="global">
     <bcf:option type="singlevalued">
@@ -95,8 +95,8 @@
       <bcf:value>+</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
-      <bcf:key>sortlos</bcf:key>
-      <bcf:value>0</bcf:value>
+      <bcf:key>sortscheme</bcf:key>
+      <bcf:value>nty</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniquelist</bcf:key>
@@ -279,10 +279,11 @@
     <bcf:citekey>L3</bcf:citekey>
     <bcf:citekey>L4</bcf:citekey>
     <bcf:citekey>L5</bcf:citekey>
-    <bcf:sectionlist label="MAIN" type="entry"/>
-    <bcf:sectionlist label="SHORTHANDS" type="shorthand">
-      <bcf:filter type="field">shorthand</bcf:filter>
-    </bcf:sectionlist>
   </bcf:section>
+  <!-- SORT LISTS -->
+  <bcf:sortlist section="0" label="MAIN" type="entry"/>
+  <bcf:sortlist section="0" label="SHORTHANDS" type="shorthand">
+    <bcf:filter type="field">shorthand</bcf:filter>
+  </bcf:sortlist>
 </bcf:controlfile>
 

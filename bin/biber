@@ -28,6 +28,7 @@ GetOptions(
            'bblencoding|E=s',
            'bblsafechars',
            'bblsafecharsset=s',
+           'cache',
            'collate|C',
            'collate_options|c=s',
            'configfile|g=s',
@@ -36,6 +37,7 @@ GetOptions(
            'decodecharsset=s',
            'debug|D',
            'fastsort|f',
+           'fixinits',
            'help|h|?',
            'mincrossrefs|m=s',
            'logfile=s',
@@ -74,6 +76,17 @@ if (exists $opts->{'version'}) {
   my $v = "biber version: $Biber::Config::VERSION";
   $v .= ' (beta)' if $Biber::Config::BETA_VERSION;
   say "$v";
+  exit EXIT_OK;
+}
+
+if (exists $opts->{'cache'}) {
+  if (my $cache = $ENV{PAR_TEMP}) {
+    $cache =~ s|//|/|og; # Sanitise path in case it worries people
+    say $cache;
+  }
+  else {
+    say "No cache - you are not running the PAR::Packer executable version of biber";
+  }
   exit EXIT_OK;
 }
 
@@ -283,6 +296,10 @@ Normally it's not necessary to set this as it's passed via the
 .bcf file from biblatex's setting of the same name.
 See "perldoc Encode::Supported" for a list of supported encodings.
 
+=item B<--cache>
+
+If running as a PAR::Packer binary, show the cache location and exit.
+
 =item B<--collate|-C>
 
 Sort with C<Unicode::Collate> instead of the built-in sort function.
@@ -329,6 +346,12 @@ The default if not specified is C<--dot_include=section,xdata,crossref,xref>.
 
 Use Perl's sort instead of C<Unicode::Collate> for sorting. Also uses
 OS locale definitions (which may be broken for some languages ...).
+
+=item B<--fixinits>
+
+Try to fix broken multiple initials with they have no space between them in BibTeX
+data sources. That is, "A.B. Clarke" becomes "A. B. Clarke" before name parsing.
+This can slightly mess up things like "{U.K. Government}" and other esoteric cases.
 
 =item B<--help|-h>
 
@@ -386,7 +409,7 @@ other datasource formats.
 
 =item B<--output_directory [directory]>
 
-Files (F<.bbl> and F<.log>) are output to directory F<directory> instead
+Files (F<.bbl> and F<.blg>) are output to directory F<directory> instead
 of the current directory. Input files are also looked for in F<directory>
 before current directory.
 
