@@ -2,6 +2,7 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: biber
 Upstream-Contact: Philip Kime <Philip@kime.org.uk>
 Source: http://biblatex-biber.sourceforge.net/
+Taken from git commit a06e103a6f0120f9e0e09b6b41b8090a4df604f2
 
 Files: *
 Copyright: François Charette <firmicus@ankabut.net>, Philip Kime <Philip@kime.org.uk>
