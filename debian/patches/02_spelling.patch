@@ -4,11 +4,9 @@ Forwarded: no
 Author: gregor herrmann <gregoa@debian.org>
 Last-Update: 2012-06-05
 
-Index: biber/lib/Biber.pm
-===================================================================
---- biber.orig/lib/Biber.pm	2012-06-12 10:34:53.000000000 +0200
-+++ biber/lib/Biber.pm	2012-06-12 10:36:54.000000000 +0200
-@@ -2141,7 +2141,7 @@
+--- a/lib/Biber.pm
++++ b/lib/Biber.pm
+@@ -2160,7 +2160,7 @@
  
            Biber::Config->add_uniquelistcount($namelist);
          }
@@ -17,10 +15,8 @@ Index: biber/lib/Biber.pm
          # we will falsely "disambiguate" identical name lists from each other by setting
          # uniquelist to the full list because every part of each list will have more than
          # one count. We therefore need to distinguish counts which are of the final, complete
-Index: biber/lib/Biber/Config.pm
-===================================================================
---- biber.orig/lib/Biber/Config.pm	2012-06-12 10:34:53.000000000 +0200
-+++ biber/lib/Biber/Config.pm	2012-06-12 10:36:54.000000000 +0200
+--- a/lib/Biber/Config.pm
++++ b/lib/Biber/Config.pm
 @@ -969,7 +969,7 @@
  
      Biber::Config->incr_seen_nameyear($ns, $ys);
@@ -39,11 +35,9 @@ Index: biber/lib/Biber/Config.pm
      displaymodes *defined* in the bib which just tell you what to return
      for a particular displaymode request for some data.
  
-Index: biber/t/basic-misc.t
-===================================================================
---- biber.orig/t/basic-misc.t	2012-06-12 10:34:53.000000000 +0200
-+++ biber/t/basic-misc.t	2012-06-12 10:36:54.000000000 +0200
-@@ -349,7 +349,7 @@
+--- a/t/basic-misc.t
++++ b/t/basic-misc.t
+@@ -342,7 +342,7 @@
  
  is( $out->get_output_entry($main,'murray'), $murray2, 'bbl with > maxcitenames, empty alphaothers' ) ;
  
