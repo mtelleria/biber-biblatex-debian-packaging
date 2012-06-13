@@ -1,3 +1,44 @@
+biber (1.0beta-git20120429-1) unstable; urgency=low
+
+  [ Philip Kime ]
+  * [ac748445] Looking at sorting per list
+  * [1f0230fd] Modified tests for list move
+  * [00f7bc92] Switched sectionlist args in BBL
+  * [68c1d223] Removed uneeded space in bbl
+  * [f1e06d5e] Changed list log messages slightly
+  * [fc663d95] Improved a log message
+  * [31c9e95a] Added option for scheme name, removed sortlos
+  * [8aeea7c4] Bumped bltx CF version to 1.8
+  * [a716751c] Changing sortlist
+  * [b9bf4daa] Refactored sortlists
+  * [0be68415] Changed xsl for new sortlist
+  * [c5f84527] Shortened build script frs paths
+  * [81c85bc5] nosort option via .bcf
+  * [81fb3bf5] comment
+  * [37b46314] Better linux 64 build script
+  * [7082dcc6] Fixed frs paths again
+  * [b022c266] Revert linux 64 build script for now, seems to make no difference
+  * [5bd1908b] Commented some build scripts
+  * [660b8216] More build script docs for RPATH issue
+  * [65f236b7] Removed relatedtitle
+  * [6a35fd41] Updated .bcf format to 2.0
+  * [d79714f7] Added \bibrangessep
+  * [2aa34bed] Added semicolon as range sep
+  * [987a1bb6] Added fixinits option
+  * [bc2c5df4] Added cache option to display PAR::Packer cache
+  * [981d1ed5] Tweaks to --cache option
+  * [d732c59f] Linux build fix for XML::LibXML upgrade
+  * [5866b834] Linux build fix for XML::LibXML upgrade fixed
+  * [0e0da00f] Fixed debian wheezy segfault with limxml2 upgrade
+  * [a06e103a] Fix for strange M::SD issue after xml upgrade on linux
+
+  [ Miguel Telleria de Esteban ]
+  * Merging upstream changes like in current debian/sid version
+  * [cbc92f6c] Reverting patch changes for the new 1.0beta version
+  * [42b58cf9] Specifying upstream commit ID in debian/copyright file
+
+ -- Miguel Telleria de Esteban <miguel@mtelleria.com>  Wed, 13 Jun 2012 14:04:45 +0200
+
 biber (0.9.9-1) unstable; urgency=low
 
   * Backporting to 0.9.9 tag in upstream's git
