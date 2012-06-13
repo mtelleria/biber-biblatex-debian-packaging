@@ -1,0 +1,28 @@
+Source: biblatex
+Section: tex
+Priority: extra
+Maintainer: Debian TeX Task Force <debian-tex-maint@lists.debian.org>
+Uploaders: Jan Hauke Rahm <jhr@debian.org>, Norbert Preining <preining@debian.org>
+Build-Depends: debhelper (>= 7.0.50)
+Build-Depends-Indep: tex-common
+Standards-Version: 3.9.2
+Homepage: http://www.ctan.org/tex-archive/help/Catalogue/entries/biblatex.html
+Vcs-Svn: svn://svn.debian.org/svn/debian-tex/biblatex/trunk
+Vcs-Browser: http://svn.debian.org/wsvn/debian-tex/biblatex/trunk/
+
+Package: biblatex
+Architecture: all
+Depends: texlive-latex-base, texlive-latex-recommended, texlive-latex-extra,
+ logreq, etoolbox (>= 2.1), ${misc:Depends}
+Recommends: biber (>= 0.9.6)
+Breaks: biblatex-dw (<< 1.2o-1)
+Description: Bibliographies for LaTeX
+ The biblatex package is a complete reimplementation of the bibliographic
+ facilities provided by LaTeX in conjunction with BibTeX. It redesigns the way
+ in which LaTeX interacts with BibTeX at a fairly fundamental level. With
+ biblatex, BibTeX is only used to sort the bibliography and to generate labels.
+ Instead of being implemented in BibTeX's style files, the formatting of the
+ bibliography is entirely controlled by TeX macros. Good working knowledge in
+ LaTeX should be sufficient to design new bibliography and citation styles —
+ there is no need to learn BibTeX’s postfix stack language. Just like the
+ bibliography styles, all citation commands may be freely (re)defined.

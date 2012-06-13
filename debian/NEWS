@@ -1,0 +1,11 @@
+biblatex (1.4c-1) unstable; urgency=low
+
+  With versions 1.0 and higher, compatibility to the ucs package isn't
+  provided anymore. If you're using utf8x in your preamble, you may encounter
+  strange behaviour and even breakage when compiling your documents. Thus,
+  relying on utf8x isn't an option. See this thread [0] for more information
+  regarding encoding issues in biblatex.
+  
+  [0] http://groups.google.com/group/comp.text.tex/browse_thread/thread/e0b0bec4e0dbf8b5#958af2af90a5f13c
+
+ -- Jan Hauke Rahm <jhr@debian.org>  Tue, 17 May 2011 20:08:26 +0200

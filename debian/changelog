@@ -1,0 +1,158 @@
+biblatex (1.7-1) unstable; urgency=low
+
+  * New upstream release
+    + Recommands biber >= 0.9.6
+  * Adjust debian/copyright
+  * Remove the handmade debian/watch stuff, not really working anyways
+
+ -- Jan Hauke Rahm <jhr@debian.org>  Wed, 30 Nov 2011 19:47:54 +0100
+
+biblatex (1.6-1) unstable; urgency=low
+
+  * New upstream release
+    + recommend biber version 0.9.4
+
+ -- Jan Hauke Rahm <jhr@debian.org>  Tue, 02 Aug 2011 17:32:10 +0200
+
+biblatex (1.4c-1) unstable; urgency=low
+
+  * New upstream release
+  * Added debian/NEWS entry about incompatibility with ucs (Closes: #623039)
+  * Bumped Standards-Version to 3.9.2
+
+ -- Jan Hauke Rahm <jhr@debian.org>  Tue, 17 May 2011 20:01:10 +0200
+
+biblatex (1.4a-1) unstable; urgency=low
+
+  * New upstream release
+  * Add missing dependency on texlive-latex-recommended
+  * Add a debian/watch file
+
+ -- Jan Hauke Rahm <jhr@debian.org>  Thu, 07 Apr 2011 14:44:07 +0200
+
+biblatex (1.4-1) unstable; urgency=low
+
+  * New upstream release
+    + Depends on etoolbox >= 2.1
+    + Recommends biber >= 0.9
+
+ -- Jan Hauke Rahm <jhr@debian.org>  Mon, 04 Apr 2011 14:48:03 +0200
+
+biblatex (1.3a-1) unstable; urgency=low
+
+  * New upstream release (Closes: #616596)
+    + Now depends on logreq
+    + biber is *strongly* recommended
+  * Bumped Standards-Version to 3.9.1
+
+ -- Jan Hauke Rahm <jhr@debian.org>  Fri, 18 Mar 2011 14:05:56 +0100
+
+biblatex (0.9a-1) unstable; urgency=low
+
+  * New upstream release
+    Maintenance release -- mainly changes that just didn't make it into 0.9
+  * Updated debian/copyright
+
+ -- Jan Hauke Rahm <jhr@debian.org>  Fri, 25 Jun 2010 01:17:50 +0200
+
+biblatex (0.9-1) unstable; urgency=low
+
+  * New upstream release
+    + Several big changes, many of them not backwards compatibale, thus:
+  * Breaks: biblatex-dw
+
+  * Bumped Standards-Version: 3.8.4
+  * Switched to Source Format 3.0 (quilt)
+
+ -- Jan Hauke Rahm <jhr@debian.org>  Tue, 23 Feb 2010 17:54:31 +0100
+
+biblatex (0.8i-2) unstable; urgency=low
+
+  * New dependency on TexLive 2009; etoolbox will be removed from the archive.
+
+ -- Jan Hauke Rahm <jhr@debian.org>  Fri, 13 Nov 2009 11:57:16 +0100
+
+biblatex (0.8i-1) unstable; urgency=low
+
+  * New upstream release (another bugfix release)
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Tue, 22 Sep 2009 09:47:48 +0200
+
+biblatex (0.8h-1) unstable; urgency=low
+
+  * New upstream release (another bugfix release)
+  * Bumped Standards-Version to 3.8.3
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Tue, 18 Aug 2009 19:18:45 +0200
+
+biblatex (0.8g-1) unstable; urgency=low
+
+  * New upstream release (bugfix release)
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Thu, 06 Aug 2009 22:28:41 +0200
+
+biblatex (0.8f-1) unstable; urgency=low
+
+  * New upstream release (bugfix release)
+  * debian/control: Correct minimum debhelper version in B-D
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Tue, 28 Jul 2009 11:57:38 +0200
+
+biblatex (0.8e-1) unstable; urgency=low
+
+  * New upstream release
+    + Improved concatenation of roles
+    + Added some new localization keys, removed some existing ones
+    + New auxiliary macros for ordinals
+    + Extended language support: Brazilian Portuguese, Swedish revised
+    + German localization now using "Hrsg."
+  * Even shorter debian/rules
+  * Bumped standards-version to 3.8.2
+  * Install file RELEASE as upstream changelog
+  * Install less (redundant) documentation
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Mon, 06 Jul 2009 12:38:19 +0200
+
+biblatex (0.8d-1) unstable; urgency=low
+
+  * New upstream release
+    + Biber beta release
+    + Package option 'bibtex8' superseded by 'backend'
+  * Switch to tex-common >= 1.15 with new debhelper 7 support
+  * Added debian/links for documentation
+  * Bumped standards-version to 3.8.1: no changes
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Mon, 01 Jun 2009 22:57:36 +0200
+
+biblatex (0.8c-1) unstable; urgency=low
+
+  * New upstream release
+    + Added 'idem' tracker
+  * DM-Upload-Allowed: yes
+  * debian/README.Debian: small update
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Wed, 14 Jan 2009 21:18:23 +0100
+
+biblatex (0.8b-1) unstable; urgency=low
+
+  * New upstream release
+    + Now including the documentation as the source file (biblatex.tex) is
+      shipped with the code (therefor added a new README.Debian entry)
+    + Changed some italian locale settings (Closes: #507561)
+  * Upstream suggested to install doc/resources/* to the texmf-tree
+  * Added lintian override for missing watch file
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Thu, 18 Dec 2008 12:27:46 +0100
+
+biblatex (0.8a-1) unstable; urgency=low
+
+  * New upstream release
+  * debian/rules cleanup
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Sun, 30 Nov 2008 17:21:36 +0100
+
+biblatex (0.8-1) unstable; urgency=low
+
+  * Initial release. (Closes: #457731)
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Tue, 14 Oct 2008 18:23:07 +0200

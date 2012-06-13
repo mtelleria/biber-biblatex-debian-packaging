@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with tex
+
+override_dh_installchangelogs:
+	dh_installchangelogs RELEASE
+
+override_dh_compress:
+	dh_compress -X.pdf

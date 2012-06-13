@@ -1,0 +1,34 @@
+biblatex (0.8i-2) unstable; urgency=low
+
+  The problems mentioned below should be solved by the upload of TexLive 2009
+  to experimental now.
+
+  The strict dependency on texlive-latex-extra (>= 2009) is for etoolbox which
+  is now provided by TL2009; the former single package will be removed from the
+  archive.
+
+ -- Jan Hauke Rahm <jhr@debian.org>  Thu, 12 Nov 2009 09:42:15 +0100
+
+biblatex (0.8b-1) unstable; urgency=low
+
+  Now, finally, the source of the documentation is shipped with the code from
+  upstream, so we can deliver the documentation as it is DFSG-free now.
+  Unfortunately, some LaTeX packages are missing in order to compile the
+  documentation. You need to manually install csquotes [1] and ltxdockit [2] to
+  be able to recompile the biblatex.pdf. Those packages will of course be
+  included in TeXLive 2008 or be shipped in separate packages. For now 
+  uploading TL 2008 is not possible due to the amount of work to do for lenny.
+
+  [1] http://mirror.ctan.org/help/Catalogue/entries/csquotes.html
+  [2] http://www.ctan.org/tex-archive/macros/latex/contrib/ltxdockit/
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Thu, 18 Dec 2008 10:32:57 +0100
+
+biblatex (0.8-1)
+
+  Please note that due to use of non-free fonts and missing sources the
+  documentation of biblatex (biblatex.pdf) had to be removed. You can find
+  this documentation on your own at
+  http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex/doc/biblatex.pdf
+
+ -- Jan Hauke Rahm <info@jhr-online.de>  Mon, 13 Oct 2008 22:19:12 +0200
