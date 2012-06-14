@@ -1,2 +1,42 @@
 Repository to hold alternative Debian packages for biber and biblatex.
 
+BRANCHES:
+
+biber
+-----
+Upstream:  biber-upstream 
+           tracking git://github.com/plk/biber.git branch dev
+
+Debian:    biber-debian
+
+
+biblatex
+--------
+Upstream:  biblatex-upstream 
+           first containing releases 1.7 and 1.7tdsfrom CTAN and sourceforge
+           later tracking git://github.com/plk/biblatex.git branch dev
+
+
+TAGS AND PACKAGES
+
+biber 0.9.9
+   Upstream:           upstream/0.9.9
+   Debian packaging:   debian/0.9.9-1
+
+biber 1.0beta (currently in Sid as of 14 June 2012)
+   Upstream:           upstream/1.0beta-git20120429
+   Debian packaging:   debian/1.0beta-git20120429-1
+
+
+biblatex 1-7 (currently in Sid as of 14 June 2012)
+   Upstream:           upstream/1.7
+   Debian packaging:   debian/1.7-1
+
+biblatex 2.0beta
+   Upstream:           upstream/2.0beta-git20120613
+   Debian packaging    debian/2.0beta-git20120613-1
+
+
+All the upstream orig.tar.gz are registered in the pristine-tar branch
+
+
