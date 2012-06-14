@@ -1,4 +1,100 @@
-$Id:$
+RELEASE NOTES FOR VERSION 2.0
+
+*  Biblatex with bibtex as the backend is now frozen at version 1.7. When
+   using biblatex with the option "backend=bibtex" (which must be
+   specified now, the default is backend=biber if no option is specified),
+   biblatex 1.7 will be automatically used. Apart from important bug fixes,
+   no more development will be done on the 1.7 branch which means that
+   users must switch to backend=biber (or don't specify the backend at all)
+   to get version 2.0 and future new features. All major new 2.0 features
+   require biber anyway so this is no real change for bibtex users.
+
+*  Biber is now the default backend. Biblatex 2.0 requires biber
+   1.0.  It will not work with any earlier release of biber due to
+   .bcf format changes required to support the new list-local sorting
+   feature.
+
+*  Controlling initials generation
+
+   A biblatex macro interface (\DeclareNoinit) is now available to declare
+   regular expressions to strip from names before generating initials for
+   them. This mirrors the Biber config file functionality on a per-document
+   basis. A common use, for example, might be to strip certain prefices
+   from names so that they do not end up as initials.
+
+*  Fine tuning sorting strings
+
+   A biblatex macro interface (\DeclareNosort) is now available to declare
+   regular expressions to strip from fields or types of fields for sorting
+   purposes. This mirrors the Biber config file functionality on a per-document
+   basis. A common use, for example, might be to strip "The " from titles for
+   sorting purposes.
+
+*  Sorting option for bibliography/shorthand lists
+
+   \printbibliography and \printshorthands now have a "sorting" option so
+   you can choose a sorting scheme for each bibliography/shorthand list
+   instead of using the global sorting scheme. This means that you can
+   issue \printbibliography or \printshorthands as many times as you need
+   to, anywhere in the document and have the resulting list sorted in the
+   way required.
+
+*  Dynamic datasource modification
+
+   A biblatex macro interface (\DeclareSourcemap) is now available to
+   allow users to dynamically modify data as it is read by Biber. This
+   can be used to do many things like remove unwanted fields,
+   regularise field contents, add new fields etc. all without write
+   access to the datasource. The biblatex manual has a large section
+   on this feature, with many examples. This feature is identical in
+   functionality to Biber's "sourcemap" option but having a macro
+   interface allows it to be used on a per-document basis.
+   
+*  Customisable labels
+
+   A new macro interface is implemented (\DeclareLabelalphaTemplate)
+   which allows customisation of the label used in alphanumeric
+   styles. The previous static labels are now implemented in terms of
+   the new interface. The biblatex manual has a section on this
+   feature with examples. One edge-case has changed with the new
+   definition of the previous default label generation behaviour: a
+   name with a prefix will now include 3 characters after the prefix
+   instead of 2 ("van Rompel" will be "vRom" instead of "vRo"). The
+   previous behaviour was anomolous anyway. There are options to
+   auto-disambiguate labels in several ways.
+
+*  Citation key aliases
+
+   It is now possible to include a new field "ids" in an entry which
+   is a comma-separated list of citation key aliases. The entry can be
+   cited by any of the aliases, which helps when you updated your
+   entry keys but don't want to change old documents.
+
+*  Option to sort names only using initials
+
+   The new option "sortfirstinits" allows users to specify that name
+   sorting only uses initials instead of the full name. Previously,
+   even if "firstinits" was true, sorting used full names.
+
+*  New citation commands
+
+   Starred variants of \citeyear and \citedate are now available which
+   include the extrayear information.
+
+*  Related entries
+
+   A general method to support "related entries" is implemented. This
+   allows a localisable, flexible way to deal with relationships between
+   entries like "reprint of", "translation of", "reprinted in" etc.
+
+   Three new entry fields are available to support this - "related",
+   "relatedtype" and "relatedstring". Biber will automatically created
+   "dataonly" clones of the related entries so that their data can be
+   accessed in styles without having to cite them. Related entries may
+   also be cited themselves which does not interfere in any way with this
+   mechanism. The standard styles have been updated to support the new
+   fields. New punctuation macros are available to format the new fields
+   in the bibliography ("relatedpunct", "relateddelim", "related").
 
 RELEASE NOTES FOR VERSION 1.7
 
