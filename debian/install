@@ -1,2 +1,2 @@
-tex/latex/* usr/share/texmf/tex/latex/biblatex
-bibtex/* usr/share/texmf/bibtex/bst/biblatex
+build/tds/tex/latex/* usr/share/texmf/tex/latex/biblatex
+build/tds/bibtex/* usr/share/texmf/bibtex/bst/biblatex
