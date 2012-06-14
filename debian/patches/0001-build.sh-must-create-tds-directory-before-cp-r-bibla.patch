@@ -1,0 +1,28 @@
+From: Miguel Telleria de Esteban <miguel@mtelleria.com>
+Date: Thu, 14 Jun 2012 11:58:53 +0200
+Subject: build.sh must create tds directory before cp-r biblatex
+
+---
+ build/build.sh |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/build/build.sh b/build/build.sh
+index df0c393..4b1b333 100755
+--- a/build/build.sh
++++ b/build/build.sh
+@@ -1,4 +1,7 @@
+ #!/usr/bin/env bash
++# +++ by Miguel to see what's going on
++set -x
++# ---
+ 
+ if [ ! -e build/build.sh ]
+ then
+@@ -20,6 +23,7 @@ declare DATE=`date '+%Y/%m/%d'`
+ 
+ \rm -rf build/tds/*
+ \rm -f build/biblatex.tgz
++mkdir build/tds
+ cp -r bibtex build/tds/
+ cp -r doc build/tds/
+ cp -r tex build/tds/
