@@ -1,3 +1,11 @@
+biblatex (2.0beta-git20120613-1) unstable; urgency=low
+
+  * Merging git beta branch
+  * Updating the package to git content on the 13-06-2012
+  * Adjusting debian dir to new 2.0 git file organisation from upstream
+
+ -- Miguel Telleria de Esteban <miguel@mtelleria.com>  Thu, 14 Jun 2012 11:28:30 +0200
+
 biblatex (1.7-1) unstable; urgency=low
 
   * New upstream release
