@@ -4,7 +4,7 @@
 	dh $@ --with tex
 
 override_dh_installchangelogs:
-	dh_installchangelogs RELEASE
+	dh_installchangelogs doc/latex/biblatex/RELEASE
 
 override_dh_compress:
 	dh_compress -X.pdf
