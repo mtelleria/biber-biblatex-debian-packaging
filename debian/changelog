@@ -1,4 +1,4 @@
-biber (1:0.9.9-1) unstable; urgency=low
+biber (0.9.9+release-1) unstable; urgency=low
 
   * Non Mainteiner Upload
   * Downgrading to 0.9.9 tag from upstream's git (closes: #677202).
