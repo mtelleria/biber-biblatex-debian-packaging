@@ -1,9 +1,10 @@
-biber (1:0.9.9-1) unstable; urgency=low
+biber (0.9.9+release-1) unstable; urgency=low
 
   * Non Mainteiner Upload
   * Downgrading to 0.9.9 tag from upstream's git (closes: #677202).
   * Upstream commit: ca084dfee54963e4e13ddb459eece8bc3e65902d
   * [a2a0c475] Updating debian/patches from the previous version.
+  * Adding biber.pdf to debian/biber.docs
 
  -- Miguel Telleria de Esteban <miguel@mtelleria.com>  Tue, 12 Jun 2012 10:46:13 +0200
 
